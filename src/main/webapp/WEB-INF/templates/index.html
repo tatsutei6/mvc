@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+</head>
+<body>
+<h2>index</h2>
+<a th:href="@{/testRequestByServletAPI}">go to testRequestByServletAPI</a><br>
+<a th:href="@{/testModelAndView}">go to testModelAndView</a><br>
+<a th:href="@{/testModel}">go to testModel</a><br>
+<a th:href="@{/testAjax}" onclick="sendRequest()">go to testAjax</a><br>
+<form th:action="@{/user}" method="post" id="userForm">
+    <label>
+        <input type="text" name="name"><br>
+    </label>
+    <label>
+        <input type="text" name="age"><br>
+    </label>
+    <!-- 隐藏input，用于传输method（put or delete）   -->
+    <input type="hidden" value="put" name="_method">
+    <button type="submit">submit</button>
+</form>
+<label for="userId"></label>
+<input type="text" name="userId" id="userId">
+<a href="javascript:void(0)" onclick="handleDelete(event)">delete</a><br>
+<div onclick="handleCLickDiv(event)">switch to input</div>
+<script>
+    function sendRequest(e) {
+        e.preventDefault();
+
+        $.ajax(
+            {
+                type: "GET",//方法
+                url: e.target.href,
+                // name=jack&age=20
+                data: $('#userForm').serialize(),
+                success: function (data) {
+                    alert('submit success')
+                    document.write(data)
+                },
+                error: function () {
+                    alert('submit fail')
+                }
+            }
+        )
+    }
+
+    function handleDelete(e) {
+        // $('#divId').text("hello") // 在div上面显示hello
+        console.log('e.target:', e.target)
+        alert('userId:' + $('#userId').val())
+    }
+
+    function handleCLickDiv(event) {
+        console.log(event.target.innerText)
+        let ipt = document.createElement('input')
+        ipt.setAttribute('id', 'inputForUpdate')
+        ipt.setAttribute('value', event.target.innerText);
+        event.target.remove()
+        document.body.appendChild(ipt)
+        // ipt.selectionStart，ipt.selectionEnd 表示input获取focus时，所选中的范围
+        // selectionStart，selectionEnd均为ipt.value.length，表示光标在文本的末尾。
+        ipt.selectionStart = ipt.value.length; // 选中区域左边界
+        ipt.selectionEnd = ipt.value.length; // 选中区域的右边界
+        ipt.focus()
+    }
+</script>
+</body>
+</html>
