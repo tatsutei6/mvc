@@ -6,6 +6,7 @@ import java.io.IOException;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 
 
 public class Application {
@@ -22,7 +23,7 @@ public class Application {
         userAddress.setDistrict("north");
         userPojo.setUserAddress(userAddress);
         ObjectMapper mapper = new ObjectMapper();
-        mapper.setPropertyNamingStrategy(new AppendPrefixStrategy());
+        mapper.setPropertyNamingStrategy(new PropertyNamingStrategies.SnakeCaseStrategy());
         System.out.println("mapper.writeValueAsString(userPojo) = " + mapper.writeValueAsString(userPojo));
     }
 
