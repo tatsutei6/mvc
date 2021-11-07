@@ -22,6 +22,7 @@ public class Application {
         userAddress.setDistrict("north");
         userPojo.setUserAddress(userAddress);
         ObjectMapper mapper = new ObjectMapper();
+        mapper.setPropertyNamingStrategy(new AppendPrefixStrategy());
         System.out.println("mapper.writeValueAsString(userPojo) = " + mapper.writeValueAsString(userPojo));
     }
 
