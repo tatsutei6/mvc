@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>JS Submit</title>
+</head>
+<body>
+    <form action="/testModel" id="myform">
+        <input type="submit" value="submit" onclick="handleClick(event)" name="btn">
+    </form>
+</body>
+<script>
+    function handleClick(e) {
+        e.preventDefault();
+        let form = document.getElementById("myform")
+        form.submit()
+    }
+</script>
+</html>

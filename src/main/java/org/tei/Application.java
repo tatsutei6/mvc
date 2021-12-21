@@ -11,20 +11,20 @@ import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 
 public class Application {
     public static void main(String[] args) throws JsonProcessingException {
-        String format = String.format("hello %s %s", "world", "Jack");
-        System.out.println("format => " + format);
-        parseCSV();
-        UserPojo userPojo = new UserPojo();
-        userPojo.setAge(20);
-        userPojo.setName("jack");
-        UserPojo.UserAddress userAddress = new UserPojo.UserAddress();
-        userAddress.setCity("Tangshan");
-        userAddress.setProvince("Hebei");
-        userAddress.setDistrict("north");
-        userPojo.setUserAddress(userAddress);
-        ObjectMapper mapper = new ObjectMapper();
-        mapper.setPropertyNamingStrategy(new PropertyNamingStrategies.SnakeCaseStrategy());
-        System.out.println("mapper.writeValueAsString(userPojo) = " + mapper.writeValueAsString(userPojo));
+//        String format = String.format("hello %s %s", "world", "Jack");
+//        System.out.println("format => " + format);
+//        parseCSV();
+//        UserPojo userPojo = new UserPojo();
+//        userPojo.setAge(20);
+//        userPojo.setName("jack");
+//        UserPojo.UserAddress userAddress = new UserPojo.UserAddress();
+//        userAddress.setCity("Tangshan");
+//        userAddress.setProvince("Hebei");
+//        userAddress.setDistrict("north");
+//        userPojo.setUserAddress(userAddress);
+//        ObjectMapper mapper = new ObjectMapper();
+//        mapper.setPropertyNamingStrategy(new PropertyNamingStrategies.SnakeCaseStrategy());
+//        System.out.println("mapper.writeValueAsString(userPojo) = " + mapper.writeValueAsString(userPojo));
     }
 
     private static void parseCSV() {

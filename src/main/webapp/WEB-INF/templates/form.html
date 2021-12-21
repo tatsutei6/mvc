@@ -13,19 +13,20 @@
 <h1>表单提交</h1>
 <span class="x-red" th:text="${session.SESSION_INFO.sessionInfo}"/>
 <!-- 表单提交用户信息,注意字段的设置,直接是*{} -->
-<form action="#" th:action="@{/validate}" th:object="${userInfo}" method="post">
-  <div><span>用户名</span>
+<form action="#" th:action="@{/validate}" th:object="${session.SESSION_INFO}" method="post" name="userInfo">
+  <div><span>用户名</span></div>
     <label>
-      <input type="text" th:field="*{username}"/>
-    </label> <span th:if="${#fields.hasErrors('username')}"
-                   th:errors="*{username}"></span></div>
-  <div>
-    <span>密码</span>
-    <label>
-      <input type="text" th:field="*{password}"/>
-    </label> <span th:if="${#fields.hasErrors('password')}"
-                   th:errors="*{password}"></span>
-  </div>
+      <input type="text" th:value="*{sessionInfo}" name="username"/>
+    </label>
+<!--    <span th:if="${#fields.hasErrors('username')}"-->
+<!--                   th:errors="*{username}"></span></div>-->
+<!--  <div>-->
+<!--    <span>密码</span>-->
+<!--    <label>-->
+<!--      <input type="text" th:field="*{password}"/>-->
+<!--    </label> <span th:if="${#fields.hasErrors('password')}"-->
+<!--                   th:errors="*{password}"></span>-->
+<!--  </div>-->
   <input type="submit" value="提交"/>
 
 </form>

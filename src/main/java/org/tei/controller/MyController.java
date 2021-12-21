@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.tei.form.UpdateForm;
@@ -35,6 +36,14 @@ public class MyController {
         return "index";
     }
 
+    @RequestMapping(value = "/ajaxToGetUser", method = RequestMethod.POST)
+    public String getUser(WebRequest request, String flag) {
+        Map<String, String> result = new HashMap<>();
+        String referer = request.getHeader("referer");
+        System.out.println("referer => " + referer);
+        return "redirect:success?flag=" + flag;
+    }
+
     @RequestMapping("/testRequestByServletAPI")
     public String testRequestByServletAPI(HttpServletRequest request) {
         request.setAttribute("testRequestScope", "hello,servletAPI");
@@ -47,6 +56,12 @@ public class MyController {
         mav.addObject("testRequestScope", "hello,ModelAndView");
         mav.setViewName("success");
         return mav;
+    }
+
+    @RequestMapping("/success")
+    public String success(Model model, String flag) {
+        model.addAttribute("flag", flag);
+        return "success";
     }
 
     @RequestMapping("/testModel")
