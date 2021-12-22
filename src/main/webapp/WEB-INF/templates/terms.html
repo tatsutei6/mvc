@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Terms</title>
+</head>
+<body>
+<h3 th:text="${flag}+利用規約"></h3>
+<form th:action="@{${dest}}" method="get">
+    <input type="submit" value="次へ">
+    <input type="hidden" th:value="${session.owner_change_transition_token}" name="transitionToken">
+</form>
+</body>
+</html>
