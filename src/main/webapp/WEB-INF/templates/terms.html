@@ -6,9 +6,9 @@
 </head>
 <body>
 <h3 th:text="${flag}+利用規約"></h3>
-<form th:action="@{${dest}}" method="get">
+<form th:action="@{${dest}}" method="post">
     <input type="submit" value="次へ">
-    <input type="hidden" th:value="${session.owner_change_transition_token}" name="transitionToken">
+    <input type="hidden" th:value="${session.transition_token}" name="transitionToken">
 </form>
 </body>
 </html>

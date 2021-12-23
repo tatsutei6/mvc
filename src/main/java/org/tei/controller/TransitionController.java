@@ -4,7 +4,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -23,7 +23,7 @@ public class TransitionController {
         }
         if ("1".equals(flag)) {
             model.addAttribute("flag", "所有者変更");
-            model.addAttribute("dest", "/owner_info_change");
+            model.addAttribute("dest", "/owner_info_change1_init");
         }
         if ("2".equals(flag)) {
             model.addAttribute("flag", "マイクロチップ情報変更");
@@ -37,7 +37,7 @@ public class TransitionController {
         return "terms";
     }
 
-    @PostMapping(value = "/owner_info_change1_init")
+    @RequestMapping(value = "/owner_info_change1_init")
     public String ownerChange1Init(HttpServletRequest request, String transitionToken) {
         boolean isValid = this.checkTransitionToken(request, transitionToken);
         if (!isValid) {
@@ -46,7 +46,7 @@ public class TransitionController {
         return "owner_change_1";
     }
 
-    @PostMapping(value = "/owner_info_change2_init")
+    @RequestMapping(value = "/owner_info_change2_init")
     public String ownerChange2Init(HttpServletRequest request, String transitionToken) {
         boolean isValid = this.checkTransitionToken(request, transitionToken);
         if (!isValid) {
@@ -55,7 +55,7 @@ public class TransitionController {
         return "owner_change_2";
     }
 
-    @PostMapping(value = "/owner_info_change3_init")
+    @RequestMapping(value = "/owner_info_change3_init")
     public String ownerChange3Init(HttpServletRequest request, String transitionToken) {
         boolean isValid = this.checkTransitionToken(request, transitionToken);
         if (!isValid) {
@@ -64,7 +64,7 @@ public class TransitionController {
         return "owner_change_3";
     }
 
-    @PostMapping(value = "/owner_info_change4_init")
+    @RequestMapping(value = "/owner_info_change4_init")
     public String ownerChange4Init(HttpServletRequest request, String transitionToken) {
         boolean isValid = this.checkTransitionToken(request, transitionToken);
         if (!isValid) {
@@ -73,7 +73,7 @@ public class TransitionController {
         return "owner_change_4";
     }
 
-    @PostMapping(value = "/success_init")
+    @RequestMapping(value = "/success_init")
     public String ownerChangeRegister(HttpServletRequest request, String transitionToken) {
         boolean isValid = this.checkTransitionToken(request, transitionToken);
         if (!isValid) {
@@ -107,8 +107,6 @@ public class TransitionController {
     }
 
     private void removeAllTransitionToken(HttpServletRequest request) {
-        request.getSession().removeAttribute("owner_change_transition_token");
-        request.getSession().removeAttribute("mcinfo_change_transition_token");
-        request.getSession().removeAttribute("info_change_transition_token");
+        request.getSession().removeAttribute("transition_token");
     }
 }

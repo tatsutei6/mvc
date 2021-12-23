@@ -6,7 +6,7 @@
 </head>
 <body>
 <h3>XXX情報変更-3</h3>
-<form th:action="@{/owner_info_change4_init}" method="post">
+<form th:action="@{/owner_info_change4_init}" method="get">
   <input type="submit" value="次へ">
   <input type="hidden" th:value="${session.transition_token}" name="transitionToken">
 </form>
