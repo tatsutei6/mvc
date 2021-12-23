@@ -23,19 +23,17 @@ public class TransitionController {
         }
         if ("1".equals(flag)) {
             model.addAttribute("flag", "所有者変更");
-            request.getSession().setAttribute("owner_change_transition_token", this.generateTransitionToken());
             model.addAttribute("dest", "/owner_info_change");
         }
         if ("2".equals(flag)) {
             model.addAttribute("flag", "マイクロチップ情報変更");
-            request.getSession().setAttribute("mcinfo_change_transition_token", this.generateTransitionToken());
             model.addAttribute("dest", "/mcinfo_change");
         }
         if ("3".equals(flag)) {
             model.addAttribute("flag", "情報変更");
             model.addAttribute("dest", "/info_change");
-            request.getSession().setAttribute("info_change_transition_token", this.generateTransitionToken());
         }
+        this.generateAndSetTransitionToken(request);
         return "terms";
     }
 
@@ -43,7 +41,7 @@ public class TransitionController {
     public String ownerChange1Init(HttpServletRequest request, String transitionToken) {
         boolean isValid = this.checkTransitionToken(request, transitionToken);
         if (!isValid) {
-            return "error";
+            return "access_error";
         }
         return "owner_change_1";
     }
@@ -52,7 +50,7 @@ public class TransitionController {
     public String ownerChange2Init(HttpServletRequest request, String transitionToken) {
         boolean isValid = this.checkTransitionToken(request, transitionToken);
         if (!isValid) {
-            return "error";
+            return "access_error";
         }
         return "owner_change_2";
     }
@@ -61,7 +59,7 @@ public class TransitionController {
     public String ownerChange3Init(HttpServletRequest request, String transitionToken) {
         boolean isValid = this.checkTransitionToken(request, transitionToken);
         if (!isValid) {
-            return "error";
+            return "access_error";
         }
         return "owner_change_3";
     }
@@ -70,7 +68,7 @@ public class TransitionController {
     public String ownerChange4Init(HttpServletRequest request, String transitionToken) {
         boolean isValid = this.checkTransitionToken(request, transitionToken);
         if (!isValid) {
-            return "error";
+            return "access_error";
         }
         return "owner_change_4";
     }
@@ -79,7 +77,7 @@ public class TransitionController {
     public String ownerChangeRegister(HttpServletRequest request, String transitionToken) {
         boolean isValid = this.checkTransitionToken(request, transitionToken);
         if (!isValid) {
-            return "error";
+            return "access_error";
         }
         return "success";
     }
@@ -88,23 +86,24 @@ public class TransitionController {
         if (!StringUtils.hasText(transitionToken)) {
             return false;
         }
-        String transitionTokenInSession = (String) request.getSession().getAttribute("owner_change_transition_token");
+        String transitionTokenInSession = (String) request.getSession().getAttribute("transition_token");
         if (!StringUtils.hasText(transitionTokenInSession)) {
             return false;
         }
         if (!transitionTokenInSession.equals(transitionToken)) {
             return false;
         }
+        this.generateAndSetTransitionToken(request);
         return true;
     }
 
-    private String generateTransitionToken() {
+    private void generateAndSetTransitionToken(HttpServletRequest request) {
 //        byte[] values = new byte[128];
 //        SecureRandom random = new SecureRandom();
 //        random.nextBytes(values);
 //        return new String(values);
         final long l = System.currentTimeMillis();
-        return Long.toString(l);
+        request.getSession().setAttribute("transition_token", Long.toString(l));
     }
 
     private void removeAllTransitionToken(HttpServletRequest request) {

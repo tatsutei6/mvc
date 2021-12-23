@@ -8,6 +8,7 @@
 <h3>XXX情報変更-4</h3>
 <form th:action="@{/success_init}" method="post">
     <input type="submit" value="次へ">
+    <input type="hidden" th:value="${session.transition_token}" name="transitionToken">
 </form>
 </body>
 </html>
