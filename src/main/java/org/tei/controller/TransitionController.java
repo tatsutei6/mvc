@@ -39,26 +39,63 @@ public class TransitionController {
         return "terms";
     }
 
-    @GetMapping(value = "/owner_info_change")
-    public String ownerChangeInit(HttpServletRequest request, String transitionToken) {
-        if (!StringUtils.hasText(transitionToken)) {
+    @PostMapping(value = "/owner_info_change1_init")
+    public String ownerChange1Init(HttpServletRequest request, String transitionToken) {
+        boolean isValid = this.checkTransitionToken(request, transitionToken);
+        if (!isValid) {
             return "error";
+        }
+        return "owner_change_1";
+    }
+
+    @PostMapping(value = "/owner_info_change2_init")
+    public String ownerChange2Init(HttpServletRequest request, String transitionToken) {
+        boolean isValid = this.checkTransitionToken(request, transitionToken);
+        if (!isValid) {
+            return "error";
+        }
+        return "owner_change_2";
+    }
+
+    @PostMapping(value = "/owner_info_change3_init")
+    public String ownerChange3Init(HttpServletRequest request, String transitionToken) {
+        boolean isValid = this.checkTransitionToken(request, transitionToken);
+        if (!isValid) {
+            return "error";
+        }
+        return "owner_change_3";
+    }
+
+    @PostMapping(value = "/owner_info_change4_init")
+    public String ownerChange4Init(HttpServletRequest request, String transitionToken) {
+        boolean isValid = this.checkTransitionToken(request, transitionToken);
+        if (!isValid) {
+            return "error";
+        }
+        return "owner_change_4";
+    }
+
+    @PostMapping(value = "/success_init")
+    public String ownerChangeRegister(HttpServletRequest request, String transitionToken) {
+        boolean isValid = this.checkTransitionToken(request, transitionToken);
+        if (!isValid) {
+            return "error";
+        }
+        return "success";
+    }
+
+    private boolean checkTransitionToken(HttpServletRequest request, String transitionToken) {
+        if (!StringUtils.hasText(transitionToken)) {
+            return false;
         }
         String transitionTokenInSession = (String) request.getSession().getAttribute("owner_change_transition_token");
         if (!StringUtils.hasText(transitionTokenInSession)) {
-            return "error";
+            return false;
         }
         if (!transitionTokenInSession.equals(transitionToken)) {
-            return "error";
+            return false;
         }
-
-        return "owner_change";
-    }
-
-    @PostMapping(value = "/owner_info_change")
-    public String ownerChangeRegister(HttpServletRequest request) {
-        request.getSession().removeAttribute("owner_change_transition_token");
-        return "success";
+        return true;
     }
 
     private String generateTransitionToken() {
@@ -70,7 +107,7 @@ public class TransitionController {
         return Long.toString(l);
     }
 
-    private void removeAllTransitionToken(HttpServletRequest request){
+    private void removeAllTransitionToken(HttpServletRequest request) {
         request.getSession().removeAttribute("owner_change_transition_token");
         request.getSession().removeAttribute("mcinfo_change_transition_token");
         request.getSession().removeAttribute("info_change_transition_token");
